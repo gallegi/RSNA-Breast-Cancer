@@ -38,13 +38,14 @@ class BCModel(BaseModel):
 
     def training_step(self, train_batch):
         X, y = train_batch
-        loss, y_pred = self.step(X, y)
-        return {'loss': loss, 'preds':y_pred, 'labels':y}
+        loss, logits = self.step(X, y)
+        y_prob = logits.sigmoid()
+        return {'loss': loss, 'preds':y_prob, 'labels':y}
 
     def validation_step(self, val_batch):
         X, y = val_batch
-        loss, y_pred = self.step(X, y)
-        y_prob = y_pred.sigmoid()
+        loss, logits = self.step(X, y)
+        y_prob = logits.sigmoid()
         return {'loss': loss, 'preds':y_prob, 'labels':y}
 
     def compute_metrics(self, outputs):
