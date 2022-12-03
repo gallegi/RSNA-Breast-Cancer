@@ -16,8 +16,9 @@ class BCModel(BaseModel):
         super(BaseModel, self).__init__()
         
         self.backbone = getattr(models, backbone_name)(weights=backbone_pretrained)
-        clf_in_feature = getattr(self.backbone, head_name).in_features
-        setattr(self.backbone, head_name,  nn.Linear(clf_in_feature, n_classes))
+        clf_in_feature = self.backbone.classifier[-1].in_features
+        # setattr(self.backbone, head_name,  nn.Linear(clf_in_feature, n_classes))
+        self.backbone.classifier[-1] = nn.Linear(clf_in_feature, n_classes)
 
         self.device = device
         self.criterion = nn.BCEWithLogitsLoss()

@@ -14,9 +14,9 @@ class CFG:
     im_size = 256
 
     num_workers=2
-    backbone="regnet_y_16gf"
-    head_name='fc'
-    pretrained_weights = torchvision.models.RegNet_Y_16GF_Weights.IMAGENET1K_SWAG_E2E_V1
+    backbone="efficientnet_v2_s"
+    head_name='classifier'
+    pretrained_weights = None
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
