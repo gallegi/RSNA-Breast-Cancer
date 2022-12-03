@@ -23,8 +23,8 @@ class CFG:
     
     resume = False
     resume_key = None
-    epochs=50
-    init_lr=1e-4
+    epochs=20
+    init_lr=3e-4
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
