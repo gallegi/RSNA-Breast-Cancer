@@ -4,7 +4,7 @@ import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
 class CFG:
-    version_note = 'v1'
+    version_note = 'v1_timm'
 
     root_folder = './'
     run_folds = [0] #[0,1,2,3,4]
@@ -14,16 +14,15 @@ class CFG:
     im_size = 256
 
     num_workers=2
-    backbone="efficientnet_v2_s"
-    head_name='classifier'
-    pretrained_weights = 'DEFAULT'
+    backbone="tf_efficientnetv2_s"
+    pretrained_weights = True
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
     
     resume = False
     resume_key = None
-    epochs=20
+    epochs=30
     init_lr=3e-4
     min_lr=1e-6
     eps=1e-6

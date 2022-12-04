@@ -61,7 +61,7 @@ for val_fold in CFG.run_folds:
                                                shuffle=False,pin_memory=True,drop_last=False)
 
     # Model
-    model = BCModel(CFG.backbone, CFG.head_name, CFG.pretrained_weights, device=CFG.device)
+    model = BCModel(CFG.backbone, CFG.pretrained_weights, device=CFG.device)
     
     # Optimizer and scheduler
     optim = AdamW(model.parameters(), betas=CFG.betas, lr=CFG.init_lr/CFG.warmup_factor, weight_decay=CFG.weight_decay)
