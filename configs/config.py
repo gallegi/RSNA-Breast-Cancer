@@ -23,19 +23,19 @@ class CFG:
     
     resume = False
     resume_key = None
-    epochs=20
+    epochs=30
     init_lr=3e-4
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=64
+    batch_size=128
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True
     save_best_only=True
     checkpoint_monitor = 'validate_pfbeta'
 
-    ema = True
+    ema = False
     ema_decay = 0.99
 
     clip_grad_norm = 10

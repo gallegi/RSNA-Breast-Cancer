@@ -62,7 +62,9 @@ for val_fold in CFG.run_folds:
 
     # Model
     model = BCModel(CFG.backbone, CFG.head_name, CFG.pretrained_weights, device=CFG.device)
-    
+    if CFG.torch_compile:
+        model = torch.compile(model, mode="reduce-overhead")
+
     # Optimizer and scheduler
     optim = AdamW(model.parameters(), betas=CFG.betas, lr=CFG.init_lr/CFG.warmup_factor, weight_decay=CFG.weight_decay)
 
