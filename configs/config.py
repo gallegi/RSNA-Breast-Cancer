@@ -37,6 +37,7 @@ class CFG:
 
     ema = False
     ema_decay = 0.99
+    torch_compile = True
 
     clip_grad_norm = 10
     accumulation_steps = 1
