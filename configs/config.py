@@ -4,7 +4,7 @@ import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
 class CFG:
-    version_note = 'v1'
+    version_note = 'v2_cropped_data'
 
     root_folder = './'
     run_folds = [0] #[0,1,2,3,4]
@@ -23,12 +23,12 @@ class CFG:
     
     resume = False
     resume_key = None
-    epochs=30
-    init_lr=3e-4
+    epochs=40
+    init_lr=1e-4
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=128
+    batch_size=64
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True
