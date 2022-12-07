@@ -1,6 +1,7 @@
 import numpy as np
 from torch import nn
 from torchvision import models
+import timm
 from sklearn.metrics import roc_auc_score
 
 import numpy as np
@@ -12,13 +13,20 @@ from .base_model import BaseModel
 from .metric import pfbeta_torch
 
 class BCModel(BaseModel):
-    def __init__(self, backbone_name, head_name, backbone_pretrained=None, n_classes=1, device='cpu'):
+    def __init__(self, backbone_name, backbone_pretrained=None, n_classes=1, device='cpu'):
         super(BaseModel, self).__init__()
         
-        self.backbone = getattr(models, backbone_name)(weights=backbone_pretrained)
-        clf_in_feature = self.backbone.classifier[-1].in_features
-        # setattr(self.backbone, head_name,  nn.Linear(clf_in_feature, n_classes))
-        self.backbone.classifier[-1] = nn.Linear(clf_in_feature, n_classes)
+        self.backbone = timm.create_model(backbone_name, pretrained=backbone_pretrained)
+        
+        if 'nfnet' in backbone_name:
+            clf_in_feature = self.backbone.head.fc.in_features
+            self.backbone.head.fc = nn.Linear(clf_in_feature, n_classes)
+        elif 'resnet' in backbone_name:
+            clf_in_feature = self.backbone.fc.in_features
+            self.backbone.fc = nn.Linear(clf_in_feature, n_classes)
+        else:
+            clf_in_feature = self.backbone.classifier.in_features
+            self.backbone.classifier = nn.Linear(clf_in_feature, n_classes)
 
         self.device = device
         self.criterion = nn.BCEWithLogitsLoss()

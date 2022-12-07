@@ -11,11 +11,10 @@ class CFG:
     device = 'cuda:0'
     comet_api_key = 'zR96oNVqYeTUXArmgZBc7J9Jp' # change to your key
     comet_project_name = 'KaggleBreastCancer'
-    im_size = 256
+    im_size = 384
 
     num_workers=2
-    backbone="efficientnet_v2_s"
-    head_name='classifier'
+    backbone="tf_efficientnetv2_m_in21ft1k"
     pretrained_weights = 'DEFAULT'
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
@@ -23,12 +22,12 @@ class CFG:
     
     resume = False
     resume_key = None
-    epochs=40
-    init_lr=1e-4
+    epochs=30
+    init_lr=3e-4
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=128
+    batch_size=64
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True

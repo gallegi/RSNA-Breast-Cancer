@@ -61,7 +61,7 @@ for val_fold in CFG.run_folds:
                                                shuffle=False,pin_memory=True,drop_last=False)
 
     # Model
-    model = BCModel(CFG.backbone, CFG.head_name, CFG.pretrained_weights, device=CFG.device)
+    model = BCModel(CFG.backbone, CFG.pretrained_weights, device=CFG.device)
     if CFG.torch_compile:
         model = torch.compile(model, mode="reduce-overhead")
 
