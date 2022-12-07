@@ -28,7 +28,7 @@ class CFG:
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=64
+    batch_size=128
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True
@@ -47,7 +47,7 @@ class CFG:
     patience = 10
 
 CFG.metadata_file = f'{CFG.root_folder}/data/train_5folds.csv'
-CFG.train_im_dir = f'{CFG.root_folder}/data/train/'
+CFG.train_im_dir = f'{CFG.root_folder}/data/bc_768_roi/train/'
 CFG.model_dir = f'{CFG.root_folder}/models'
 CFG.valid_pred_folder = f'{CFG.root_folder}/valid_predictions'
 CFG.submission_folder = f'{CFG.root_folder}/submissions'
@@ -60,7 +60,15 @@ CFG.train_transforms = A.Compose(
             A.VerticalFlip(p=0.5),
             A.Transpose(p=0.5),
 
-            A.Resize(height=CFG.im_size, width=CFG.im_size, always_apply=True),
+            A.OneOf([
+                A.RandomBrightnessContrast(p=1.0),
+                A.MedianBlur(p=1.0)
+            ],
+            p=0.5),
+
+            A.LongestMaxSize(max_size=CFG.im_size, always_apply=True),
+            A.PadIfNeeded(min_width=CFG.im_size, min_height=CFG.im_size, border_mode=cv2.BORDER_CONSTANT, always_apply=True),
+            A.Cutout(max_h_size=int(CFG.im_size / 16), max_w_size=int(CFG.im_size / 16), p=0.5),
             A.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ToTensorV2(always_apply=True),
         ],
@@ -70,7 +78,8 @@ CFG.train_transforms = A.Compose(
 
 CFG.val_transforms = A.Compose(
         [
-            A.Resize(height=CFG.im_size, width=CFG.im_size, always_apply=True),
+            A.LongestMaxSize(max_size=CFG.im_size, always_apply=True),
+            A.PadIfNeeded(min_width=CFG.im_size, min_height=CFG.im_size, border_mode=cv2.BORDER_CONSTANT, always_apply=True),
             A.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ToTensorV2(always_apply=True),
         ],
