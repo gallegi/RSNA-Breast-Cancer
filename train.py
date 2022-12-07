@@ -15,6 +15,8 @@ from src.trainer import Trainer
 parser = argparse.ArgumentParser(description='Training arguments')
 parser.add_argument('--config', type=str, default='config',
                     help='config file to run an experiment')
+parser.add_argument('--im_dir', type=str, default='data/train',
+                    help='path to training image folder')
 parser.add_argument('--model_dir', type=str, default='./models',
                     help='config file to run an experiment')
 
@@ -24,6 +26,7 @@ config_module = importlib.import_module(f'configs.{args.config}')
 CFG = config_module.CFG
 
 CFG.model_dir = args.model_dir
+CFG.train_im_dir = args.im_dir
 
 CFG.output_dir_name = CFG.version_note + '_' + CFG.backbone.replace('/', '_') 
 CFG.output_dir = os.path.join(args.model_dir, CFG.output_dir_name)
