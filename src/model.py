@@ -31,6 +31,8 @@ class BCModel(BaseModel):
             clf_in_feature = self.backbone.classifier.in_features
             self.backbone.classifier = nn.Linear(clf_in_feature, n_classes)
 
+        self.backbone = nn.DataParallel(self.backbone)
+
         self.device = device
         self.criterion = nn.BCEWithLogitsLoss()
 

@@ -3,7 +3,6 @@ import argparse
 import importlib
 import pandas as pd
 import torch
-from torch import nn
 
 from warmup_scheduler import GradualWarmupScheduler
 from torch.optim import AdamW
@@ -66,8 +65,6 @@ for val_fold in CFG.run_folds:
 
     # Model
     model = BCModel(CFG.backbone, CFG.pretrained_weights, device=CFG.device)
-    model = nn.DataParallel(model)
-
     if CFG.torch_compile:
         model = torch.compile(model, mode="reduce-overhead")
 
