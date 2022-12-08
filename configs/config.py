@@ -1,3 +1,4 @@
+%%writefile configs/config.py
 import torchvision
 import cv2
 import albumentations as A 
@@ -11,23 +12,23 @@ class CFG:
     device = 'cuda:0'
     comet_api_key = 'zR96oNVqYeTUXArmgZBc7J9Jp' # change to your key
     comet_project_name = 'KaggleBreastCancer'
-    im_size = 384
+    im_size = 300
 
     num_workers=2
-    backbone="tf_efficientnetv2_m_in21ft1k"
+    backbone="tf_efficientnetv2_s_in21ft1k"
     pretrained_weights = 'DEFAULT'
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
     
-    resume = False
-    resume_key = None
+    resume = True
+    resume_key = '74547e4968a04a0c80e106fbdd168f9d'
     epochs=30
     init_lr=3e-4
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=32
+    batch_size=64
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True

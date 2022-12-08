@@ -36,7 +36,7 @@ if not torch.cuda.is_available() and (not torch.backends.mps.is_available()) :
 df = pd.read_csv(CFG.metadata_file)
 
 # Load model
-model = BCModel(CFG.backbone, CFG.head_name, CFG.pretrained_weights, device=CFG.device)
+model = BCModel(CFG.backbone, CFG.pretrained_weights, device=CFG.device)
 print(model.load_state_dict(torch.load(args.weight, map_location=CFG.device)['model'], strict=True))
 model.eval() # important
 
