@@ -18,6 +18,8 @@ parser.add_argument('--config', type=str, default='config',
                     help='config file to run an experiment')
 parser.add_argument('--fold', type=int, default=0,
                     help='fold to evaluate')
+parser.add_argument('--im_dir', type=str, default='data/train',
+                    help='path to training image folder')
 parser.add_argument('--weight', type=str, default='models/v1_efficientnet_v2_s/fold0_best.pth',
                     help='trained weight file')
 
@@ -25,6 +27,8 @@ args = parser.parse_args()
 
 config_module = importlib.import_module(f'configs.{args.config}')
 CFG = config_module.CFG
+
+CFG.train_im_dir = args.im_dir
 
 CFG.output_dir_name = CFG.version_note + '_' + CFG.backbone.replace('/', '_') 
 CFG.output_dir = os.path.join(CFG.model_dir, CFG.output_dir_name)
