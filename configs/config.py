@@ -1,5 +1,3 @@
-%%writefile configs/config.py
-import torchvision
 import cv2
 import albumentations as A 
 from albumentations.pytorch.transforms import ToTensorV2
@@ -21,8 +19,8 @@ class CFG:
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
     
-    resume = True
-    resume_key = '74547e4968a04a0c80e106fbdd168f9d'
+    resume = False
+    resume_key = None
     epochs=30
     init_lr=3e-4
     min_lr=1e-6
