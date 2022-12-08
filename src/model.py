@@ -24,6 +24,9 @@ class BCModel(BaseModel):
         elif 'resnet' in backbone_name:
             clf_in_feature = self.backbone.fc.in_features
             self.backbone.fc = nn.Linear(clf_in_feature, n_classes)
+        elif 'xcit' in backbone_name:
+            clf_in_feature = self.backbone.head.in_features
+            self.backbone.head = nn.Linear(clf_in_feature, n_classes)
         else:
             clf_in_feature = self.backbone.classifier.in_features
             self.backbone.classifier = nn.Linear(clf_in_feature, n_classes)
