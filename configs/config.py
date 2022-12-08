@@ -7,7 +7,7 @@ class CFG:
 
     root_folder = './'
     run_folds = [0] #[0,1,2,3,4]
-    device = 'cuda:0'
+    device = 'cuda'
     comet_api_key = 'zR96oNVqYeTUXArmgZBc7J9Jp' # change to your key
     comet_project_name = 'KaggleBreastCancer'
     im_size = 768
@@ -26,7 +26,7 @@ class CFG:
     min_lr=1e-6
     eps=1e-6
     betas=(0.9, 0.999)
-    batch_size=8
+    batch_size=16
     weight_decay=0.01
     warmup_factor = 10
     fp16 = True
