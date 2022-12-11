@@ -116,6 +116,8 @@ class Trainer():
             if self.lr_scheduler:
                 self.lr_scheduler.step()
 
+            break
+
     def _train_one_step(self, data):
         if self.accumulation_steps == 1 and self.batch_index == 0:
             self.optimizer.zero_grad()
@@ -182,6 +184,9 @@ class Trainer():
             
             # acummulate output for epoch-end processing
             training_step_outputs.append(output)
+
+            if b_idx == 100:
+                break
 
         tk0.close()
 
