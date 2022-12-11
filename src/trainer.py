@@ -1,9 +1,9 @@
 import os
-import gc
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from typing import Dict
 import comet_ml
 
 # from .logger import Logger
@@ -116,8 +116,6 @@ class Trainer():
             if self.lr_scheduler:
                 self.lr_scheduler.step()
 
-            break
-
     def _train_one_step(self, data):
         if self.accumulation_steps == 1 and self.batch_index == 0:
             self.optimizer.zero_grad()
@@ -149,8 +147,6 @@ class Trainer():
             if self.batch_index > 0:
                 self.optimizer.zero_grad()
 
-        gc.collect()
-
         return output
 
     def _val_one_step(self, data):
@@ -159,8 +155,6 @@ class Trainer():
                 output = self.model.validation_step(data)
         else:
             output = self.model.validation_step(data)
-
-        gc.collect()
 
         return output
 
@@ -184,9 +178,6 @@ class Trainer():
             
             # acummulate output for epoch-end processing
             training_step_outputs.append(output)
-
-            if b_idx == 100:
-                break
 
         tk0.close()
 
