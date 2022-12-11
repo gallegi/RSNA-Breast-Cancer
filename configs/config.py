@@ -10,7 +10,7 @@ class CFG:
     device = 'cuda'
     comet_api_key = 'zR96oNVqYeTUXArmgZBc7J9Jp' # change to your key
     comet_project_name = 'KaggleBreastCancer'
-    im_size = 768
+    im_size = 512
 
     num_workers=2
     backbone="tf_efficientnet_b2_ns"
@@ -21,7 +21,7 @@ class CFG:
     
     resume = False
     resume_key = None
-    epochs=50
+    epochs=30
     init_lr=1e-4
     min_lr=1e-6
     eps=1e-6
