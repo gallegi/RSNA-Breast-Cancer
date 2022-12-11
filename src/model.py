@@ -1,7 +1,7 @@
 import numpy as np
 from torch import nn
 from torchvision import models
-import timm
+# import timm
 from sklearn.metrics import roc_auc_score
 
 import numpy as np
@@ -42,13 +42,13 @@ class BCModel(BaseModel):
         X, y = train_batch
         loss, logits = self.step(X, y)
         y_prob = logits.sigmoid()
-        return {'loss': loss, 'preds':y_prob, 'labels':y}
+        return {'loss': loss, 'preds':y_prob.half(), 'labels':y.int()}
 
     def validation_step(self, val_batch):
         X, y = val_batch
         loss, logits = self.step(X, y)
         y_prob = logits.sigmoid()
-        return {'loss': loss, 'preds':y_prob, 'labels':y}
+        return {'loss': loss, 'preds':y_prob.half(), 'labels':y.int()}
 
     def compute_metrics(self, outputs):
         all_preds = np.concatenate([out['preds'].detach().cpu().numpy() for out in outputs])
