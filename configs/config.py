@@ -27,7 +27,7 @@ class CFG:
     eps=1e-6
     betas=(0.9, 0.999)
     batch_size=24
-    weight_decay=0.01
+    weight_decay=0.02
     warmup_factor = 10
     fp16 = True
     save_best_only=True
@@ -38,7 +38,7 @@ class CFG:
     torch_compile = False
 
     clip_grad_norm = 10
-    accumulation_steps = 1
+    accumulation_steps = 3
 
     seed=67    
     sample = None
