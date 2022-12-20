@@ -35,6 +35,7 @@ class BCModel(BaseModel):
         self.device = device
         self.criterion = nn.BCEWithLogitsLoss()
 
+        self.backbone = nn.DataParallel(self.backbone)
         self.backbone.to(self.device)
 
     def forward(self, X):

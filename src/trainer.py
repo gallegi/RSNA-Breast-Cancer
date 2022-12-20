@@ -29,8 +29,6 @@ class Trainer():
         self.num_epochs = self.cfg.epochs
         seed_everything(self.cfg.seed) # make reproducible
         self.device = self.cfg.device
-
-        self.model = nn.DataParallel(self.model)
         self.model.to(self.device)
 
         self.fold = fold
