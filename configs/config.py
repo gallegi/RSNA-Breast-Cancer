@@ -3,7 +3,7 @@ import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
 class CFG:
-    version_note = 'v1'
+    version_note = 'v1_size768'
 
     root_folder = './'
     run_folds = [0] #[0,1,2,3,4]
