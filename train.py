@@ -11,6 +11,7 @@ from src.general import seed_everything
 from src.dataset import BCDataset
 from src.model import BCModel
 from src.trainer import Trainer
+from torch import nn
 
 parser = argparse.ArgumentParser(description='Training arguments')
 parser.add_argument('--config', type=str, default='config',
@@ -67,6 +68,8 @@ for val_fold in CFG.run_folds:
     model = BCModel(CFG.backbone, CFG.pretrained_weights, device=CFG.device)
     if CFG.torch_compile:
         model = torch.compile(model, mode="reduce-overhead")
+
+    model = nn.DataParallel(model)
 
     # Optimizer and scheduler
     optim = AdamW(model.parameters(), betas=CFG.betas, lr=CFG.init_lr/CFG.warmup_factor, weight_decay=CFG.weight_decay)

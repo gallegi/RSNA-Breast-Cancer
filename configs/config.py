@@ -10,7 +10,7 @@ class CFG:
     device = 'cuda'
     comet_api_key = 'zR96oNVqYeTUXArmgZBc7J9Jp' # change to your key
     comet_project_name = 'KaggleBreastCancer'
-    im_size = 512
+    im_size = 768
 
     num_workers=2
     backbone="tf_efficientnetv2_s"
