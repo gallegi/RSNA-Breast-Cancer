@@ -142,6 +142,7 @@ class Trainer():
                 self.scaler.update()
             else:
                 self.optimizer.step()
+                
             if self.ema:
                 self.model_ema.update(self.model)
             if self.batch_index > 0:
@@ -151,10 +152,11 @@ class Trainer():
 
     def _val_one_step(self, data):
         if self.fp16:
-            with torch.cuda.amp.autocast():
+            with torch.cuda.amp.autocast(), torch.no_grad():
                 output = self.model.validation_step(data)
         else:
-            output = self.model.validation_step(data)
+            with torch.no_grad():
+                output = self.model.validation_step(data)
 
         return output
 

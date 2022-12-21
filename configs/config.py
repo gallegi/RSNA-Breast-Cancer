@@ -44,7 +44,7 @@ class CFG:
     sample = None
     patience = 10
 
-CFG.metadata_file = f'{CFG.root_folder}/data/train_5folds.csv'
+CFG.metadata_file = f'{CFG.root_folder}/data/train_4folds.csv'
 CFG.train_im_dir = f'{CFG.root_folder}/data/bc_768_roi/train/'
 CFG.model_dir = f'{CFG.root_folder}/models'
 CFG.valid_pred_folder = f'{CFG.root_folder}/valid_predictions'
