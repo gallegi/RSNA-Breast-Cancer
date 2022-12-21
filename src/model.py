@@ -15,7 +15,7 @@ from .metric import pfbeta_torch
 class BCModel(BaseModel):
     def __init__(self, backbone_name, backbone_pretrained=None, n_classes=1, device='cpu'):
         super(BaseModel, self).__init__()
-        
+        self.backbone = timm.create_model(backbone_name, pretrained=backbone_pretrained)
         if 'nfnet' in backbone_name:
             clf_in_feature = self.backbone.head.fc.in_features
             self.backbone.head.fc = nn.Linear(clf_in_feature, n_classes)
