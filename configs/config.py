@@ -13,8 +13,8 @@ class CFG:
     im_size = 1024
 
     num_workers=2
-    backbone="tf_efficientnetv2_s"
-    pretrained_weights = True
+    backbone="efficientnet_v2_s"
+    pretrained_weights = 'DEFAULT'
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
