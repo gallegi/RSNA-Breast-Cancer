@@ -42,18 +42,18 @@ class BCModel(BaseModel):
     def training_step(self, train_batch):
         X, y = train_batch
         loss, logits = self.step(X, y)
-        y_prob = logits.sigmoid()
-        return {'loss': loss, 'preds':y_prob.half(), 'labels':y.int()}
+        y_prob = logits.sigmoid().detach().cpu().numpy()
+        return {'loss': loss, 'preds':y_prob, 'labels':y.int().cpu().numpy()}
 
     def validation_step(self, val_batch):
         X, y = val_batch
         loss, logits = self.step(X, y)
-        y_prob = logits.sigmoid()
-        return {'loss': loss, 'preds':y_prob.half(), 'labels':y.int()}
+        y_prob = logits.sigmoid().detach().cpu().numpy()
+        return {'loss': loss, 'preds':y_prob, 'labels':y.int().cpu().numpy()}
 
     def compute_metrics(self, outputs):
-        all_preds = np.concatenate([out['preds'].detach().cpu().numpy() for out in outputs])
-        all_labels = np.concatenate([out['labels'].detach().cpu().numpy() for out in outputs])
+        all_preds = np.concatenate([out['preds'] for out in outputs])
+        all_labels = np.concatenate([out['labels'] for out in outputs])
         auc = float(roc_auc_score(y_true=all_labels, y_score=all_preds))
         pfbeta = pfbeta_torch(all_labels, all_preds)
         return auc, pfbeta
