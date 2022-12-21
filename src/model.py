@@ -16,10 +16,18 @@ class BCModel(BaseModel):
     def __init__(self, backbone_name, backbone_pretrained=None, n_classes=1, device='cpu'):
         super(BaseModel, self).__init__()
         
-        self.backbone = getattr(models, backbone_name)(weights=backbone_pretrained)
-        clf_in_feature = self.backbone.classifier[-1].in_features
-        # setattr(self.backbone, head_name,  nn.Linear(clf_in_feature, n_classes))
-        self.backbone.classifier[-1] = nn.Linear(clf_in_feature, n_classes)
+        if 'nfnet' in backbone_name:
+            clf_in_feature = self.backbone.head.fc.in_features
+            self.backbone.head.fc = nn.Linear(clf_in_feature, n_classes)
+        elif 'resnet' in backbone_name:
+            clf_in_feature = self.backbone.fc.in_features
+            self.backbone.fc = nn.Linear(clf_in_feature, n_classes)
+        elif 'xcit' in backbone_name:
+            clf_in_feature = self.backbone.head.in_features
+            self.backbone.head = nn.Linear(clf_in_feature, n_classes)
+        else:
+            clf_in_feature = self.backbone.classifier.in_features
+            self.backbone.classifier = nn.Linear(clf_in_feature, n_classes)
 
         # self.backbone = nn.DataParallel(self.backbone)
         self.device = device

@@ -14,7 +14,7 @@ class CFG:
 
     num_workers=2
     backbone="efficientnet_v2_s"
-    pretrained_weights = 'DEFAULT'
+    pretrained_weights = True
     gradient_checkpointing=False
     scheduler='cosine' # ['linear', 'cosine']
     batch_scheduler=True
