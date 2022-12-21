@@ -67,7 +67,7 @@ CFG.train_transforms = A.Compose(
             # A.LongestMaxSize(max_size=CFG.im_size, always_apply=True),
             # A.PadIfNeeded(min_width=CFG.im_size, min_height=CFG.im_size, border_mode=cv2.BORDER_CONSTANT, always_apply=True),
             # A.Cutout(max_h_size=int(CFG.im_size / 16), max_w_size=int(CFG.im_size / 16), p=0.5),
-            A.Resize(width=CFG.size, height=CFG.size, always_apply=True),
+            A.Resize(width=CFG.im_size, height=CFG.im_size, always_apply=True),
             A.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ToTensorV2(always_apply=True),
         ],
@@ -79,7 +79,7 @@ CFG.val_transforms = A.Compose(
         [
             # A.LongestMaxSize(max_size=CFG.im_size, always_apply=True),
             # A.PadIfNeeded(min_width=CFG.im_size, min_height=CFG.im_size, border_mode=cv2.BORDER_CONSTANT, always_apply=True),
-            A.Resize(width=CFG.size, height=CFG.size, always_apply=True),
+            A.Resize(width=CFG.im_size, height=CFG.im_size, always_apply=True),
             A.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ToTensorV2(always_apply=True),
         ],
